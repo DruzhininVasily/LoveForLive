@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+<div class="profile_container">
+    <h1>{{ account.user }}</h1>
+    <form method="post" enctype="multipart/form-data" class="profile_form">
+        {% csrf_token %}
+        {{ userForm.as_p }}
+        {{ updateForm.as_p }}
+        <button class="profile_form_button" type="submit">Обновить данные</button>
+        <a class="profile_form_button" href="{% url 'logout' %}">Выйти</a>
+    </form>
+</div>
+<h1 id="desc">Доступные курсы:</h1>
+<div class="profile_courses_list">
+    {% for course in courses %}
+        {% if course.allow %}
+            <div class="profile_course">
+                <h2>{{ course.course.title }}</h2>
+                <img src="{{ course.course.img.url }}" alt="{{ course.course.title }}">
+                <a href="{% url 'course' course.course %}" class="profile_course_button">Перейти</a>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

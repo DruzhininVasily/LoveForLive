@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+<div class="pass_reset_container">
+    <h1>Восстановление пароля</h1>
+    <form method="post" class="pass_reset_form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Запросить новый пароль</button>
+    </form>
+</div>
+{% endblock main %}

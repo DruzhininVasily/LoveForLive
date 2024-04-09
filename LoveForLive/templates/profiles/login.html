@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+<div class="authorization_container">
+    <h1>Авторизация</h1>
+    <form method="post" class="auth_form">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="auth_button" type="submit">Войти</button>
+        <a href="{% url 'registration' %}" class="auth_button">Регистрация</a>
+        <hr>
+        <p class="reg_auth">Забыли пароль? <a class="reg_auth_link" href="{% url 'pass_reset' %}">Получить новый</a></p>
+    </form>
+</div>
+{% endblock main %}

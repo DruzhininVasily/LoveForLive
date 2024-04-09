@@ -1,0 +1,78 @@
+{% load static %}
+<!doctype html>
+<html lang=ru>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+<header>
+    <img id="vector_1" src="/media/main/Vector 1.png">
+    <a href="{% url 'home' %}">Главная</a>
+    <a href="{% url 'articles' %}">Статьи</a>
+    <a href="#" class="disabled">Рецепты</a>
+    <a href="{% url 'courses' %}">Курсы</a>
+    {% if user.is_authenticated %}
+    <a href="{% url 'account' %}">Личный кабинет</a>
+    {% else %}
+    <a href="{% url 'login' %}">Личный кабинет</a>
+    {% endif %}
+    <div class="head_social">
+        <a href="https://t.me/federyakina_official">
+            <div class="social_cyrcle">
+                <img src="/media/main/telegram.png" alt="telegram">
+            </div>
+        </a>
+        <a class="email_link" href="info_loveforlive@mail.ru">
+            <div class="social_cyrcle">
+                <img src="/media/main/email.png" alt="email">
+            </div>
+        </a>
+        <a href="https://vk.com/federyakina_official1">
+            <div class="social_cyrcle">
+                <img src="/media/main/vk.png" alt="vk">
+            </div>
+        </a>
+    </div>
+</header>
+    {% block main %}
+    {% endblock %}
+<footer>
+    <div class="foot_menu">
+        <h4>Меню</h4>
+        <a href="{% url 'home' %}">Главная</a>
+        <a href="{% url 'articles' %}">Статьи</a>
+        <a href="#" class="disabled">Рецепты</a>
+        <a href="{% url 'courses' %}">Курсы</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'account' %}">Личный кабинет</a>
+        {% else %}
+        <a href="{% url 'login' %}">Личный кабинет</a>
+        {% endif %}
+    </div>
+    <div class="foot_social">
+        <a href="https://t.me/federyakina_official">
+            <div class="foot_cyrcle">
+                <img src="/media/main/telegram-2.png" alt="telegram">
+            </div>
+        </a>
+        <a class="email_link" href="info_loveforlive@mail.ru">
+            <div class="foot_cyrcle">
+                <img src="/media/main/email-2.png" alt="email">
+            </div>
+        </a>
+        <a href="https://vk.com/federyakina_official1">
+            <div class="foot_cyrcle">
+                <img src="/media/main/vk-2.png" alt="vk">
+            </div>
+        </a>
+    </div>
+</footer>
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

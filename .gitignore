@@ -1,0 +1,4 @@
+venv
+LoveForLive/.env
+LoveForLive/media
+LoveForLive/db.sqlite3

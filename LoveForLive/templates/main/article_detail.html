@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+    <div class="article_detail">
+        <img src="{{ article.img.url }}" alt="{{ article.title }}">
+        <h1>{{ article.title }}</h1>
+        <div class="text">{{ article.text|safe }}</div>
+    </div>
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+<div class="home_main">
+    <div class="home_main_descr">
+        <h1>Нутрициолог, психолог и коуч в твоём кармане</h1>
+        <p>Расскажу все секреты как быть здоровой и счастливой. Ты получиш новый взгляд на жизнь.</p>
+        <a class="home_lg_button" href="#consultation">Записаться на консультацию</a>
+    </div>
+    <img class="home_main_photo" src="media/main/Home_main_photo.png">
+    <img id="vector_2" src="media/main/Vector 2.png">
+</div>
+<div class="home_second">
+    <img src="media/main/Vector 3.png" id="vector_3">
+    <img src="media/main/vegetable 3.png" id="vegetable_3">
+    <div class="home_second_photo_block">
+        <img src="media/main/Home_second_photo.png" class="home_second_photo">
+        <a href="{% url 'courses' %}" class="home_second_button">Пройти обучение онлайн</a>
+    </div>
+    <div class="line"></div>
+    <div class="second_descr">
+        <p class="home_second_descr_text">Мой главный принцып - не лечить болезни, а убрать из жизни то, что к ним приводит.</p>
+        <hr>
+        <p class="home_second_descr_text">Вместе со мной вы поймёте как всё устроено в организме, как наши привычки влияют на процессы которые происходят в нашем организме. Я помогу вам легко ввести правильные привычки в вашу жизнь.</p>
+        <hr>
+        <div class="home_second_descr_text">
+        <h3>Как результаты вы получите:</h3>
+        <ul>
+            <li>Укрепление иммунитета</li>
+            <li>Прибавку энергии для жизни</li>
+            <li>Подготовите свой организм к беременности (если планируете)</li>
+            <li>Нормализуете гормональный фон</li>
+            <li>Научитесь управлять стрессом</li>
+            <li>Сохраните молодость</li>
+            <li>Предупредите развитие множества заболеваний</li>
+        </ul>
+        </div>
+    </div>
+</div>
+<div class="home_video_container">
+    <video
+              id="my-video"
+              class="video-js main_video"
+              controls
+              controlsList="nodownload"
+              preload="auto"
+              poster="media/default.png"
+              data-setup="{}"
+          >
+            <source src="{% url 'main_stream' %}" type="video/mp4"/>
+            <source src="{% url 'main_stream' %}" type="video/webm"/>
+    </video>
+</div>
+<div class="home_third">
+    <img id="vegetable_4" src="media/main/vegetable 4.png">
+    <div class="home_third_cards_container">
+        <div class="home_third_cards">
+            <img class="home_third_card_img" src="media/main/card 1.png">
+            <h3>Статьи</h3>
+            <p>Изучайте полезные материалы которые помогут вам начать путь к здоровой жизни.</p>
+            <a class="home_third_cards_button" href="{% url 'articles' %}">Перейти</a>
+        </div>
+        <div class="home_third_cards">
+            <img class="home_third_card_img" src="media/main/card 2.png">
+            <h3>Рецепты</h3>
+            <p>Я подготовила рецепты блюд, что бы ваша здоровая еда была не только полезной но и вкусной.</p>
+            <a class="home_third_cards_button" href="#">Перейти</a>
+        </div>
+        <div class="home_third_cards">
+            <img class="home_third_card_img" src="media/main/card 3.png">
+            <h3>Консультация</h3>
+            <p>Вы можете записаться на личную консультацию, и я помогу вам выбрать правильный путь к здоровой и счастливой жизни.</p>
+            <a class="home_third_cards_button" href="#consultation">Записаться</a>
+        </div>
+        <div class="home_third_cards">
+            <img class="home_third_card_img" src="media/main/card 4.png">
+            <h3>Онлайн курс</h3>
+            <p>Программа курса подбирается для каждого индивидуально. Зарегистрируйтесь в личном кабинете и начните обучение.</p>
+            <a class="home_third_cards_button" href="{% url 'courses' %}">Перейти</a>
+        </div>
+    </div>
+    <img class="home_third_photo" src="media/main/Home_third_photo.png">
+</div>
+<div class="home_sertifictes_block">
+    <img class="sertif" src="/media/main/sertif_1.jpg">
+    <img class="sertif" src="/media/main/sertif_2.jpg">
+    <img class="sertif" src="/media/main/sertif_3.png">
+</div>
+<div class="home_form_block">
+    <img id="vegetable_5" src="media/main/vegetable 5.png">
+    <img id="vegetable_6" src="media/main/vegetable 6.png">
+    <div class="home_form">
+        <h2>Записаться на консультацию</h2>
+        <form method="post" id="consultation">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Записаться</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

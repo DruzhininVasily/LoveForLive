@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+<div class="course_info_container">
+    <img src="{{ course.img.url }}" alt="{{ course.title }}">
+    <h1>{{ course.title }}</h1>
+    <p>{{ course.description }}</p>
+    <p>Стоимость курса: {{ course.price }}</p>
+    <p>Для доступа к курсу напишите в <a href="#">телеграм</a></p>
+</div>
+{% endblock %}

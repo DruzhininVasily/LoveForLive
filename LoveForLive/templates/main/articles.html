@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+<div class="articles">
+    {% for art in articles %}
+        <div class="article">
+            <h1>{{ art.title }}</h1>
+            <img src="{{ art.img.url }}" alt="{{ art.title }}">
+            <div class="text">{{ art.text|striptags|truncatechars:200 }}</div>
+            <a class="articles_button" href="{% url 'article-detail' art.id %}">Читать далее</a>
+        </div>
+{% endfor %}
+    <img src="media/main/vegetable 1.png" class="articles_vegetable_1">
+</div>
+<div class="paginate">
+{% if is_paginated %}
+        {% if page_obj.has_previous %}
+            <a class="pagin_liter" href="?page=1">В начало</a>
+            <a class="pagin_liter" href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if num == page_obj.number %}
+                <a href="#" class="article_pagin_disabled">{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a class="article_pagin_num" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a class="pagin_liter" href="?page={{ page_obj.next_page_number }}">Следующая</a>
+            <a class="pagin_liter" href="?page={{ page_obj.paginator.num_pages }}">Последняя страница</a>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

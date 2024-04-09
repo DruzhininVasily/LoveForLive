@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+{% if allow %}
+<div class="lesson">
+    <h1>{{ lesson.lesson_slug }}</h1>
+    <video
+              id="my-video"
+              class="video-js"
+              controls
+              controlsList="nodownload"
+              preload="auto"
+              width="1000"
+              height="800"
+              poster="media/poster.png"
+              data-setup="{}"
+          >
+            <source src="{% url 'stream' lesson.id %}" type="video/mp4"/>
+            <source src="{% url 'stream' lesson.id %}" type="video/webm"/>
+    </video>
+    <p>{{ lesson.text }}</p>
+</div>
+<div class="lesson_tasks">
+            {% for prog in progress %}
+    <div class="lesson_task">
+                {% for task in tasks %}
+                    {% if forloop.counter == forloop.parentloop.counter %}
+                    <h3>Задание {{ forloop.counter }}</h3>
+                    <p class="lesson_task_text">{{ task.task_text }}</p>
+                    {% endif %}
+                {% endfor %}
+            <form method="post">
+                    {% csrf_token %}
+                    {{ prog.as_p }}
+                    <button type="submit">Сохранить</button>
+            </form>
+    </div>
+            {% endfor %}
+</div>
+{% endif %}
+{% endblock main %}

@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+<div class="courses_descript">
+    <h1>Онлайн курсы</h1>
+</div>
+<div class="courses">
+    {% if user.is_authenticated %}
+    {% for al in allow %}
+        {% if al.allow %}
+        <div class="course_container">
+            <h3>{{ al.course.title }}</h3>
+            <img src="{{ al.course.img.url }}" alt="{{ al.course.title }}">
+            <a href="{% url 'course' al.course %}">Пройти обучение</a>
+        </div>
+        {% else %}
+        <div class="course_container">
+            <h3>{{ al.course.title }}</h3>
+            <img src="{{ al.course.img.url }}" alt="{{ al.course.title }}">
+            <a href="{% url 'course_info' pk=al.course.id %}">Пройти обучение</a>
+        </div>
+        {% endif %}
+    {% endfor %}
+    {% else %}
+        {% for course in courses %}
+            <div class="course_container">
+            <h3>{{ course.title }}</h3>
+            <img src="{{ course.img.url }}" alt="{{ course.title }}">
+            <a href="{% url 'course_info' pk=course.id %}">Пройти обучение</a>
+        </div>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

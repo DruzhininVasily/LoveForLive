@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+<div class="registration_container">
+    <h1>Регистрация</h1>
+    <form method="post" class="reg_form">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="reg_button" type="submit">Зарегистрироваться</button>
+        <hr>
+        <p class="reg_auth">Уже зарегистрировались? <a class="reg_auth_link" href="{% url 'login' %}">Войти в личный кабинет</a></p>
+    </form>
+</div>
+{% endblock main %}

@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+{% if allow.allow %}
+<div class="course_descr_container">
+    <img src="{{ allow.course.img.url }}" alt="{{ allow.course.title }}">
+    <h1>{{ allow.course.title }}</h1>
+</div>
+<div class="lessons_container">
+    {% for lesson in lessons %}
+        <div class="lesson_list_container">
+            <h1>{{ lesson.title }}</h1>
+            <img src="/media/default.png">
+            <a href="{% url 'lesson' slug=object.slug lesson_slug=lesson.lesson_slug %}">Перейти</a>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock main %}
