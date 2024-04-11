@@ -1,19 +1,21 @@
-document.querySelector('video').addEventListener('contextmenu', event => {
+try {document.querySelector('video').addEventListener('contextmenu', event => {
     event.preventDefault(); /* Контекстное меню не появится. */
-});
+});}
+catch {}
 
-const copyLink = (e) => {
-    e.preventDefault();
-    let aux = document.createElement('input');
-    let url = e.target.getAttribute('href');
-    aux.setAttribute('value', url);
-    document.body.appendChild(aux);
-    aux.select();
-    document.execCommand('copy');
-    document.body.removeChild(aux);
-  };
+let emailLinks = document.querySelectorAll('.email_link')
+let copyAlert = document.querySelector('.copy_alert')
 
-let links = document.querySelectorAll('.email_link');
-for (link in links) {
-    link.addEventListener('click', copyLink);
+let hideAlert = function (obj) {
+    obj.style.opacity = '0';
 }
+
+let copyLink = function () {
+    navigator.clipboard.writeText("info_loveforlive@mail.ru");
+    copyAlert.style.opacity = '0.8';
+    setTimeout(hideAlert, 3000, copyAlert)
+};
+
+for (let index = 0; index<emailLinks.length; index++) {
+    emailLinks[index].addEventListener('click', copyLink);
+};

@@ -63,11 +63,32 @@ class Lesson(models.Model):
     title = models.CharField('Заголовок урока', max_length=50, default=None)
     text = models.TextField('Текстовый материал')
     number = models.IntegerField('Номер урока')
+    poster = models.ImageField("Постер для видео", upload_to='posters', default='poster.png')
     video = models.FileField(
         upload_to='video/',
         validators=[FileExtensionValidator(allowed_extensions=['mp4'])],
         default=None
     )
+
+    def save(self, *args, **kwargs):
+        try:
+            this = Lesson.objects.get(id=self.id)
+            if this.poster != self.poster and this.poster.path != MEDIA_ROOT+'\poster.png':
+                this.poster.delete(save=False)
+        except:
+            pass
+        super().save()
+        image = Image.open(self.poster.path)
+        if image.height > 1000 or image.width > 600:
+            resize = (1000, 600)
+            image.thumbnail(resize)
+            image.save(self.poster.path)
+
+    def delete(self, *args, **kwargs):
+        storage, path = self.poster.storage, self.poster.path
+        super(Lesson, self).delete(*args, **kwargs)
+        if path != MEDIA_ROOT + '\poster.png':
+            storage.delete(path)
 
     def __str__(self):
         return f'{self.course.__str__()}_{self.lesson_slug}'

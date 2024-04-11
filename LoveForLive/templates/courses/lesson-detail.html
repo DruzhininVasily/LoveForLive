@@ -12,7 +12,7 @@
               preload="auto"
               width="1000"
               height="800"
-              poster="media/poster.png"
+              poster="{{ lesson.poster.url }}"
               data-setup="{}"
           >
             <source src="{% url 'stream' lesson.id %}" type="video/mp4"/>

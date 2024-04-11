@@ -22,24 +22,26 @@
     {% else %}
     <a href="{% url 'login' %}">Личный кабинет</a>
     {% endif %}
+    <a href="{% url 'contacts' %}">Контакты</a>
     <div class="head_social">
-        <a href="https://t.me/federyakina_official">
+        <a href="https://t.me/federyakina_official" target="_blank">
             <div class="social_cyrcle">
                 <img src="/media/main/telegram.png" alt="telegram">
             </div>
         </a>
-        <a class="email_link" href="info_loveforlive@mail.ru">
-            <div class="social_cyrcle">
-                <img src="/media/main/email.png" alt="email">
-            </div>
-        </a>
-        <a href="https://vk.com/federyakina_official1">
+        <div class="social_cyrcle email_link">
+            <img src="/media/main/email.png" alt="email">
+        </div>
+        <a href="https://vk.com/federyakina_official1" target="_blank">
             <div class="social_cyrcle">
                 <img src="/media/main/vk.png" alt="vk">
             </div>
         </a>
     </div>
 </header>
+    <div class="copy_alert">
+        <span>Email скопирован в буфер обмена</span>
+    </div>
     {% block main %}
     {% endblock %}
 <footer>
@@ -54,19 +56,18 @@
         {% else %}
         <a href="{% url 'login' %}">Личный кабинет</a>
         {% endif %}
+        <a href="{% url 'contacts' %}">Контакты</a>
     </div>
     <div class="foot_social">
-        <a href="https://t.me/federyakina_official">
+        <a href="https://t.me/federyakina_official" target="_blank">
             <div class="foot_cyrcle">
                 <img src="/media/main/telegram-2.png" alt="telegram">
             </div>
         </a>
-        <a class="email_link" href="info_loveforlive@mail.ru">
-            <div class="foot_cyrcle">
-                <img src="/media/main/email-2.png" alt="email">
-            </div>
-        </a>
-        <a href="https://vk.com/federyakina_official1">
+        <div class="foot_cyrcle email_link">
+            <img src="/media/main/email-2.png" alt="email">
+        </div>
+        <a href="https://vk.com/federyakina_official1" target="_blank">
             <div class="foot_cyrcle">
                 <img src="/media/main/vk-2.png" alt="vk">
             </div>

@@ -29,6 +29,10 @@ def home_page_views(request):
     return render(request, 'main/home.html', {'title': 'LoveForLive', 'form': form})
 
 
+def contacts_page(request):
+    return render(request, 'main/contacts.html')
+
+
 class ShowAllArticles(ListView):
     model = Articles
     template_name = 'main/articles.html'

@@ -5,5 +5,6 @@ urlpatterns = [
     path('', views.home_page_views, name='home'),
     path('articles', views.ShowAllArticles.as_view(), name='articles'),
     path('article/<int:pk>', views.ShowArticleDetail.as_view(), name='article-detail'),
+    path('contacts', views.contacts_page, name='contacts'),
     path('streaming/', views.get_streaming, name='main_stream')
 ]
