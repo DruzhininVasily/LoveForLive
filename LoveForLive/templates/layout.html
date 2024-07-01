@@ -15,7 +15,7 @@
     <img id="vector_1" src="/media/main/Vector 1.png">
     <a href="{% url 'home' %}">Главная</a>
     <a href="{% url 'articles' %}">Статьи</a>
-    <a href="#" class="disabled">Рецепты</a>
+    <a href="{% url 'receipts' %}" >Рецепты</a>
     <a href="{% url 'courses' %}">Курсы</a>
     {% if user.is_authenticated %}
     <a href="{% url 'account' %}">Личный кабинет</a>
@@ -49,8 +49,9 @@
         <h4>Меню</h4>
         <a href="{% url 'home' %}">Главная</a>
         <a href="{% url 'articles' %}">Статьи</a>
-        <a href="#" class="disabled">Рецепты</a>
+        <a href="{% url 'receipts' %}">Рецепты</a>
         <a href="{% url 'courses' %}">Курсы</a>
+        <a href="{% url 'consultation' %}">Консультация</a>
         {% if user.is_authenticated %}
         <a href="{% url 'account' %}">Личный кабинет</a>
         {% else %}

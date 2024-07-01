@@ -1399,6 +1399,42 @@ a.article_pagin_disabled {
     };
 }
 
+.course_dossing {
+    padding: 2% 8%;
+}
+
+.course_dossing a {
+    font-size: 19px;
+    color: #9BD71B;
+    transition: color 0.3s linear;
+    @media (max-width: 500px) {
+        font-size: 12px;
+    };
+    @media (min-width: 501px) and (max-width: 800px) {
+        font-size: 14px;
+    };
+    @media (min-width: 801px) and (max-width: 1100px) {
+        font-size: 17px;
+    };
+}
+
+.course_dossing a:hover {
+    color: #b5fa23;
+}
+
+.dossing_container {
+    padding: 2% 9%;
+}
+
+.dossing_container h1 {
+    margin: 3%;
+    text-align: center;
+}
+
+.dossing_container li {
+    margin-bottom: 1%;
+}
+
 .lessons_container {
     padding: 2% 8%;
     display: flex;
@@ -1440,6 +1476,16 @@ a.article_pagin_disabled {
         padding: 2%;
     };
 }
+
+.okey {
+    max-width: 15%;
+    position: absolute;
+}
+
+.complite {
+    background: rgba(97, 97, 97, 0.6)
+}
+
 
 .lesson_list_container h1 {
     @media (max-width: 500px) {
@@ -1490,6 +1536,23 @@ a.article_pagin_disabled {
 
 .lesson p {
     margin-bottom: 5%;
+}
+
+.rowband img {
+    width: 40%;
+}
+
+.rowband {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 6%;
+    transition: all 0.3s linear;
+}
+
+.rowband:hover {
+    width: 6.5%;
 }
 
 .lesson video {
@@ -1646,4 +1709,10 @@ a.article_pagin_disabled {
 
 .disabled {
     display: none;
+}
+
+/* receipts */
+.receipts_container {
+    margin: 8% 5%;
+    text-align: center;
 }

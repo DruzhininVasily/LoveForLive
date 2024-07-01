@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+<div class="home_form_block">
+    <img id="vegetable_5" src="media/main/vegetable 5.png">
+    <img id="vegetable_6" src="media/main/vegetable 6.png">
+    <div class="home_form">
+        <h2>Записаться на консультацию</h2>
+        <form method="post" id="consultation">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Записаться</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

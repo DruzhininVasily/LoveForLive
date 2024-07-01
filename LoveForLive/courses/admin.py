@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Courses, Lesson, Tasks, Allowance, LessonProgress
+from .models import Courses, Lesson, Tasks, Allowance, LessonProgress, Dossing
 
 
 class CourseAdmin(admin.ModelAdmin):
@@ -26,8 +26,14 @@ class ProgressAdmin(admin.ModelAdmin):
     list_filter = ('user', 'task')
 
 
+class DossingAdmin(admin.ModelAdmin):
+    list_display = ('course', 'dossing_list')
+    list_filter = ('course', 'dossing_list')
+
+
 admin.site.register(Courses, CourseAdmin)
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Tasks, TasksAdmin)
 admin.site.register(Allowance, AllowanceAdmin)
 admin.site.register(LessonProgress, ProgressAdmin)
+admin.site.register(Dossing, DossingAdmin)

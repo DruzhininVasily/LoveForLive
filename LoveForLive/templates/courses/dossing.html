@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+<div class="dossing_container">
+    <h1>Дозировки препаратов</h1>
+    <ul>
+    {% for elem in dossing_list %}
+        <li>{{ elem }}</li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock main %}

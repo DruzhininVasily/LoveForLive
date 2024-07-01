@@ -14,12 +14,14 @@
 <h1 id="desc">Доступные курсы:</h1>
 <div class="profile_courses_list">
     {% for course in courses %}
+        {% if not course.course.hide %}
         {% if course.allow %}
             <div class="profile_course">
                 <h2>{{ course.course.title }}</h2>
                 <img src="{{ course.course.img.url }}" alt="{{ course.course.title }}">
                 <a href="{% url 'course' course.course %}" class="profile_course_button">Перейти</a>
             </div>
+        {% endif %}
         {% endif %}
     {% endfor %}
 </div>

@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+    <div class="article_detail">
+        <img src="{{ receipt.img.url }}" alt="{{ receipt.title }}">
+        <h1>{{ receipt.title }}</h1>
+        <div class="text">{{ receipt.text|safe }}</div>
+    </div>
+{% endblock %}

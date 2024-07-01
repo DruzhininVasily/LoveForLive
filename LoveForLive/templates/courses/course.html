@@ -6,13 +6,30 @@
     <img src="{{ allow.course.img.url }}" alt="{{ allow.course.title }}">
     <h1>{{ allow.course.title }}</h1>
 </div>
+<div class="course_dossing">
+    <span>Для быстрого доступа мы собрали</span>
+    <a href="{% url 'dossing' slug=object.slug %}">Дозировки препаратов</a>
+</div>
 <div class="lessons_container">
     {% for lesson in lessons %}
-        <div class="lesson_list_container">
-            <h1>{{ lesson.title }}</h1>
-            <img src="/media/default.png">
-            <a href="{% url 'lesson' slug=object.slug lesson_slug=lesson.lesson_slug %}">Перейти</a>
-        </div>
+        {% for prog in progress %}
+        {% if forloop.counter == forloop.parentloop.counter %}
+            {% if prog %}
+            <div class="lesson_list_container complite">
+                <h1>{{ lesson.title }}</h1>
+                <img src="/media/default.png">
+                <img src="/media/main/okey.png" class="okey">
+                <a href="{% url 'lesson' slug=object.slug lesson_slug=lesson.lesson_slug %}">Перейти</a>
+            </div>
+            {% else %}
+            <div class="lesson_list_container">
+                <h1>{{ lesson.title }}</h1>
+                <img src="/media/default.png">
+                <a href="{% url 'lesson' slug=object.slug lesson_slug=lesson.lesson_slug %}">Перейти</a>
+            </div>
+            {% endif %}
+        {% endif %}
+        {% endfor %}
     {% endfor %}
 </div>
 {% endif %}

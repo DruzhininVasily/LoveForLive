@@ -3,6 +3,7 @@
 {% block main %}
 {% if allow %}
 <div class="lesson">
+    <a href="{% url 'course' course %}" class="rowband"><img src="/media/main/rowband.png">Назад</a>
     <h1>{{ lesson.lesson_slug }}</h1>
     <video
               id="my-video"

@@ -5,7 +5,7 @@
     <div class="home_main_descr">
         <h1>Нутрициолог, психолог и коуч в твоём кармане</h1>
         <p>Расскажу все секреты как быть здоровой и счастливой. Ты получиш новый взгляд на жизнь.</p>
-        <a class="home_lg_button" href="#consultation">Записаться на консультацию</a>
+        <a class="home_lg_button" href="{% url 'consultation' %}">Записаться на консультацию</a>
     </div>
     <img class="home_main_photo" src="media/main/Home_main_photo.png">
     <img id="vector_2" src="media/main/Vector 2.png">
@@ -64,13 +64,13 @@
             <img class="home_third_card_img" src="media/main/card 2.png">
             <h3>Рецепты</h3>
             <p>Я подготовила рецепты блюд, что бы ваша здоровая еда была не только полезной но и вкусной.</p>
-            <a class="home_third_cards_button" href="#">Перейти</a>
+            <a class="home_third_cards_button" href="{% url 'receipts' %}">Перейти</a>
         </div>
         <div class="home_third_cards">
             <img class="home_third_card_img" src="media/main/card 3.png">
             <h3>Консультация</h3>
             <p>Вы можете записаться на личную консультацию, и я помогу вам выбрать правильный путь к здоровой и счастливой жизни.</p>
-            <a class="home_third_cards_button" href="#consultation">Записаться</a>
+            <a class="home_third_cards_button" href="{% url 'consultation' %}">Записаться</a>
         </div>
         <div class="home_third_cards">
             <img class="home_third_card_img" src="media/main/card 4.png">
@@ -85,18 +85,7 @@
     <img class="sertif" src="/media/main/sertif_1.jpg">
     <img class="sertif" src="/media/main/sertif_2.jpg">
     <img class="sertif" src="/media/main/sertif_3.png">
-</div>
-<div class="home_form_block">
     <img id="vegetable_5" src="media/main/vegetable 5.png">
     <img id="vegetable_6" src="media/main/vegetable 6.png">
-    <div class="home_form">
-        <h2>Записаться на консультацию</h2>
-        <form method="post" id="consultation">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Записаться</button>
-        </form>
-    </div>
 </div>
-
 {% endblock %}

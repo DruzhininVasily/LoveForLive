@@ -57,3 +57,40 @@ class Articles(models.Model):
     class Meta:
         verbose_name = 'Статью'
         verbose_name_plural = 'Статьи'
+
+
+class Receipts(models.Model):
+    title = models.CharField('Заголовок рецепта', max_length=100)
+    text = models.TextField('Текст рецепта')
+    img = models.ImageField('Изображение рецепта', default='default.png', upload_to='receipts')
+    date = models.DateTimeField('Дата', default=timezone.now)
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('receipt-detail', kwargs={'pk': self.pk})
+
+    def save(self, *args, **kwargs):
+        try:
+            this = Receipts.objects.get(id=self.id)
+            if this.img != self.img and this.img.path != MEDIA_ROOT+'\default.png':
+                this.img.delete(save=False)
+        except:
+            pass
+        super().save()
+        image = Image.open(self.img.path)
+        if image.height > 512 or image.width > 512:
+            resize = (512, 512)
+            image.thumbnail(resize)
+            image.save(self.img.path)
+
+    def delete(self, *args, **kwargs):
+        storage, path = self.img.storage, self.img.path
+        super(Receipts, self).delete(*args, **kwargs)
+        if path != MEDIA_ROOT + '\default.png':
+            storage.delete(path)
+
+    class Meta:
+        verbose_name = 'Рецепт'
+        verbose_name_plural = 'Рецепты'

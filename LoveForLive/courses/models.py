@@ -11,6 +11,7 @@ class Courses(models.Model):
     description = models.TextField('Описание курса', max_length=500, default='Описание')
     img = models.ImageField("Изображение курса", upload_to='courses', default='default.png')
     price = models.IntegerField('Цена курса', default=0)
+    hide = models.BooleanField('Режим отладки', default=True)
 
     def __str__(self):
         return self.slug
@@ -30,7 +31,10 @@ class Courses(models.Model):
             image.save(self.img.path)
         users = User.objects.all()
         for user in users:
-            Allowance(user=user, course=self, allow=False).save()
+            try:
+                Allowance.objects.get(user=user, course=self)
+            except Exception:
+                Allowance(user=user, course=self, allow=False).save()
 
     def delete(self, *args, **kwargs):
         storage, path = self.img.storage, self.img.path
@@ -42,6 +46,15 @@ class Courses(models.Model):
     class Meta:
         verbose_name = 'Курс'
         verbose_name_plural = 'Курсы'
+
+
+class Dossing(models.Model):
+    course = models.ForeignKey(Courses, on_delete=models.CASCADE)
+    dossing_list = models.TextField('Список дозировок', max_length=10000)
+
+    class Meta:
+        verbose_name = 'Дозировки'
+        verbose_name_plural = 'Дозировки'
 
 
 class Allowance(models.Model):
