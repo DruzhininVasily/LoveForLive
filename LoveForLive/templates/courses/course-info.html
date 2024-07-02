@@ -5,7 +5,13 @@
     <img src="{{ course.img.url }}" alt="{{ course.title }}">
     <h1>{{ course.title }}</h1>
     <p>{{ course.description }}</p>
-    <p>Стоимость курса: {{ course.price }}</p>
-    <p>Для доступа к курсу напишите в <a href="#">телеграм</a></p>
+    {% if user.is_authenticated %}
+        <p>Стоимость курса: {{ course.price }}<span>руб.</span></p>
+        <a class="auth_course_button" href="{% url 'payment' course=course.id %}">Купить</a>
+    {% else %}
+    <div class="auth_from_course">
+        <span>Авторизуйтесь в </span><a class="login_course_button" href="{% url 'login' %}">личном кабинете</a>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}

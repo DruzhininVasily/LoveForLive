@@ -48,6 +48,15 @@ class Courses(models.Model):
         verbose_name_plural = 'Курсы'
 
 
+class Promo(models.Model):
+    promo_code = models.CharField('Промокод', max_length=50, unique=True)
+    weight = models.DecimalField('Влияние', decimal_places=2, max_digits=2)
+
+    class Meta:
+        verbose_name = 'Промокод'
+        verbose_name_plural = 'Промокоды'
+
+
 class Dossing(models.Model):
     course = models.ForeignKey(Courses, on_delete=models.CASCADE)
     dossing_list = models.TextField('Список дозировок', max_length=10000)

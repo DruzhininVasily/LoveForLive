@@ -8,4 +8,5 @@ urlpatterns = [
     path('dossing/<slug>', views.DossingView.as_view(), name='dossing'),
     path('<slug>/<lesson_slug>', views.LessonDetailPage.as_view(), name='lesson'),
     path('stream/<int:pk>/', views.get_streaming_video, name='stream'),
+    path('/payment/<course>', views.payment_view, name='payment')
 ]

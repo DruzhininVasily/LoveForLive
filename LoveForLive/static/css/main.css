@@ -633,7 +633,39 @@ footer {
 
 .home_form {
     text-align: center;
-    padding: 7% 0;
+    padding: 5% 0;
+}
+
+.consiltation_text {
+    padding: 3% 8%;
+    text-align: center;
+}
+
+.consiltation_text h2 {
+    margin-bottom: 2%;
+    font-size: 24px;
+    @media (max-width: 500px) {
+        font-size: 14px;
+    };
+    @media (min-width: 501px) and (max-width: 800px) {
+        font-size: 17px;
+    };
+    @media (min-width: 801px) and (max-width: 1100px) {
+        font-size: 19px;
+    };
+}
+
+.consiltation_text p {
+    font-size: 19px;
+    @media (max-width: 500px) {
+        font-size: 12px;
+    };
+    @media (min-width: 501px) and (max-width: 800px) {
+        font-size: 14px;
+    };
+    @media (min-width: 801px) and (max-width: 1100px) {
+        font-size: 17px;
+    };
 }
 
 .home_form h2 {
@@ -1034,6 +1066,10 @@ a.article_pagin_disabled {
     };
 }
 
+.auth_from_course {
+    font-size: 21px;
+}
+
 .auth_form_input,
 .reg_form_input{
     width: 100%;
@@ -1055,6 +1091,35 @@ a.article_pagin_disabled {
     @media (min-width: 801px) and (max-width: 1100px) {
         font-size: 14px;
     };
+}
+
+.auth_course_button {
+    border: none;
+    color: #FFF;
+    border-radius: 20px;
+    background: #9BD71B;
+    padding: 1% 6%;
+    font-size: 16px;
+    @media (max-width: 500px) {
+        font-size: 10px;
+        padding: 0.5% 4%;
+        border-radius: 10px;
+    };
+    @media (min-width: 501px) and (max-width: 800px) {
+        font-size: 12px;
+        padding: 0.5% 4.5%;
+        border-radius: 12px;
+    };
+    @media (min-width: 801px) and (max-width: 1100px) {
+        font-size: 14px;
+        padding: 1% 5%;
+        border-radius: 15px;
+    };
+    transition: all 0.7s linear;
+}
+
+.auth_course_button:hover {
+    background: #b5fa23;
 }
 
 .auth_button {
@@ -1653,6 +1718,7 @@ a.article_pagin_disabled {
     padding: 2% 8%;
     display: flex;
     flex-direction: column;
+    align-items: start;
 }
 
 .course_info_container img {
@@ -1699,11 +1765,11 @@ a.article_pagin_disabled {
     };
 }
 
-.course_info_container a {
+.login_course_button {
     transition: color 0.5s linear;
 }
 
-.course_info_container a:hover {
+.login_course_button:hover {
     color: #9BD71B;
 }
 

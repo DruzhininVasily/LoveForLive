@@ -4,6 +4,7 @@ from .models import Courses, Allowance, Lesson, Tasks, LessonProgress, Dossing
 from .forms import LessonProgressFormSet
 from .services import open_file
 from django.http import StreamingHttpResponse
+from requests import post
 
 
 class CoursesView(ListView):
@@ -112,3 +113,9 @@ class InfoView(DetailView):
         ctx['title'] = course.title
         ctx['course'] = course
         return ctx
+
+
+def payment_view(request, course):
+    print(request.user.id)
+    print(course)
+    return redirect('home')

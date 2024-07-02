@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Courses, Lesson, Tasks, Allowance, LessonProgress, Dossing
+from .models import Courses, Lesson, Tasks, Allowance, LessonProgress, Dossing, Promo
 
 
 class CourseAdmin(admin.ModelAdmin):
@@ -37,3 +37,4 @@ admin.site.register(Tasks, TasksAdmin)
 admin.site.register(Allowance, AllowanceAdmin)
 admin.site.register(LessonProgress, ProgressAdmin)
 admin.site.register(Dossing, DossingAdmin)
+admin.site.register(Promo)
