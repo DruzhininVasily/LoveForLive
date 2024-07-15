@@ -1368,6 +1368,10 @@ a.article_pagin_disabled {
     background: #b5fa23;
 }
 
+.registration_container .profile_form_input {
+    width: 100%;
+}
+
 #desc {
     padding: 2% 8%;
     @media (max-width: 500px) {
@@ -1781,4 +1785,79 @@ a.article_pagin_disabled {
 .receipts_container {
     margin: 8% 5%;
     text-align: center;
+}
+
+.message_pay_block {
+    padding: 6% 8%;
+    font-size: 29px;
+    @media (max-width: 500px) {
+        font-size: 19px;
+    };
+    @media (min-width: 501px) and (max-width: 800px) {
+        font-size: 24px;
+    };
+    @media (min-width: 801px) and (max-width: 1100px) {
+        font-size: 29px;
+    };
+}
+
+.message_pay_block a {
+    color: #9BD71B;
+    transition: color 0.5s linear;
+}
+
+.message_pay_block a:hover{
+    color: #b5fa23;
+}
+
+.input_course_info {
+    width: 75%;
+    font-size: 14px;
+    border: 1px solid black;
+    background: #FFF;
+    padding: 3% 4%;
+    border-radius: 20px;
+    margin-bottom: 8%;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.3);
+    @media (max-width: 500px) {
+        font-size: 10px;
+        padding: 8px;
+        width: 50%;
+    };
+    @media (min-width: 501px) and (max-width: 800px) {
+        font-size: 12px;
+        padding: 10px;
+        width: 40%;
+    };
+    @media (min-width: 801px) and (max-width: 1100px) {
+        font-size: 14px;
+        padding: 12px;
+        width: 30%;
+    };
+}
+
+.info_course_button {
+    font-size: 21px;
+    color: white;
+    background: #9BD71B;
+    padding: 3% 15%;
+    border: none;
+    border-radius: 20px;
+    transition: all 0.5s linear;
+}
+
+.info_course_button:hover {
+    background: #b5fa23;
+}
+
+.politics {
+    transition: color 0.5s linear;
+}
+
+.politics:hover {
+    color: #9BD71B;
+}
+
+.politic_text_block {
+    padding: 4% 8%;
 }

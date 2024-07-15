@@ -13,6 +13,9 @@ class RequestConsultation(models.Model):
     phone = PhoneNumberField('Номер телефона', blank=True)
     country = models.CharField('Страна проживания', max_length=50)
     date = models.DateTimeField('Дата запроса', default=timezone.now)
+    pay_status = models.BooleanField('Статус оплаты', default=False)
+    payment_id = models.CharField('ID платежа', default='0', max_length=100)
+    pay_sum = models.IntegerField('Оплачено', default=0)
 
     def __str__(self):
         return self.name

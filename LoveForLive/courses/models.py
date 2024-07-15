@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 from django.core.validators import FileExtensionValidator
 from LoveForLive.settings import MEDIA_ROOT
 from PIL import Image
@@ -150,3 +151,19 @@ class LessonProgress(models.Model):
     class Meta:
         verbose_name = 'Прогресс пользователя'
         verbose_name_plural = 'Прогресс пользователей'
+
+
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    course = models.ForeignKey(Courses, on_delete=models.CASCADE)
+    pay_status = models.BooleanField('Статус оплаты', default=False)
+    payment_id = models.CharField('ID платежа', default='0', max_length=100)
+    date = models.DateTimeField('Дата платежа', default=timezone.now)
+    pay_sum = models.IntegerField('Оплачено', default=0)
+
+    def __str__(self):
+        return f'{self.user}_{self.course}'
+
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'

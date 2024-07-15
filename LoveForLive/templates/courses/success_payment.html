@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+<div class="message_pay_block">
+{% if status %}
+    <p>Курс успешно оплачен</p>
+    <a href="{% url 'course' link %}">Пройти обучение</a>
+{% else %}
+    <p>Что-то пошло не так, обратитесь в <a href="https://t.me/federyakina_official" target="_blank">телеграмм</a></p>
+{% endif %}
+</div>
+{% endblock %}

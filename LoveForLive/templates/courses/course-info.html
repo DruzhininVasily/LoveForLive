@@ -7,7 +7,11 @@
     <p>{{ course.description }}</p>
     {% if user.is_authenticated %}
         <p>Стоимость курса: {{ course.price }}<span>руб.</span></p>
-        <a class="auth_course_button" href="{% url 'payment' course=course.id %}">Купить</a>
+        <form action="{% url 'payment' course=course.id %}" method="post">
+            {% csrf_token %}
+            <input class="input_course_info" type="text" name="Promo">
+            <input class="info_course_button" type="submit" value="Купить">
+        </form>
     {% else %}
     <div class="auth_from_course">
         <span>Авторизуйтесь в </span><a class="login_course_button" href="{% url 'login' %}">личном кабинете</a>

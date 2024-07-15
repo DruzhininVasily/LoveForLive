@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
 from .forms import ConsultationForm
-from .models import Articles, Receipts
+from .models import Articles, Receipts,RequestConsultation
 from .services import open_file
 from django.views.generic import ListView, DetailView
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.http import StreamingHttpResponse
+from LoveForLive.settings import TERMINAL_KEY, TERMINAL_PASSWORD
+import hashlib
+import requests
 
 
 def home_page_views(request):
@@ -28,9 +31,99 @@ def consultation(request):
             msg.attach_alternative(html_body, "text/html")
             msg.send()
             form.save()
-            return redirect('home')
+            price = 300000
+            order = str(RequestConsultation.objects.all().order_by('-pk')[0].id)
+            values = {
+                'Amount': str(price),
+                'Description': 'Индивидуальная консультация',
+                'FailURL': str(request.scheme + '://' + request.get_host() + '/fail_cons_pay'),
+                "Language": "ru",
+                'NotificationURL': str(
+                    request.scheme + '://' + request.get_host() + '/consultation'),
+                'OrderId': order,
+                'Password': str(TERMINAL_PASSWORD),
+                "PayType": "O",
+                "Recurrent": "N",
+                'SuccessURL': str(request.scheme + '://' + request.get_host() + '/success_cons_pay/'+str(order)),
+                'TerminalKey': str(TERMINAL_KEY),
+            }
+            concatenated_values = ''.join([values[key] for key in (values.keys())])
+            hash_object = hashlib.sha256(concatenated_values.encode('utf-8'))
+            token = hash_object.hexdigest()
+            payment_data = {
+                'TerminalKey': str(TERMINAL_KEY),
+                'OrderId': order,
+                'Amount': str(price),
+                "Description": 'Индивидуальная консультация',
+                "Language": "ru",
+                "PayType": "O",
+                "Recurrent": "N",
+                'Token': token,
+                'DATA': {
+                    "Phone": str(data['phone']),
+                    'Email': str(data['email']),
+                },
+                'Receipt': {
+                    'Email': str(data['email']),
+                    'Phone': str(data['phone']),
+                    'Taxation': 'osn',
+                    'Items': [{
+                        'Name': 'Индивидуальная консультация',
+                        'Price': str(price),
+                        'Quantity': 1,
+                        'Amount': str(price),
+                        'Tax': 'none',
+                    }, ]
+                },
+                'SuccessURL': str(request.scheme + '://' + request.get_host() + '/success_cons_pay/'+str(order)),
+                'NotificationURL': str(
+                    request.scheme + '://' + request.get_host() + '/consultation'),
+                'FailURL': str(request.scheme + '://' + request.get_host() + '/fail_cons_pay'),
+            }
+
+            url = 'https://securepay.tinkoff.ru/v2/Init'
+            response = requests.post(url, json=payment_data)
+            print(response.json())
+            if response.json()['Success']:
+                payment_url = response.json()['PaymentURL']
+                RequestConsultation.objects.filter(id=int(order)).update(payment_id=str(response.json()['PaymentId']), pay_sum=price/100)
+
+                # отправляем пользователя на платёжную форму
+                return redirect(payment_url)
     form = ConsultationForm(request.POST)
     return render(request, 'main/consultation.html', {'title': 'Консультация', 'form': form})
+
+
+def check_order(order_id):
+    url = "https://securepay.tinkoff.ru/v2/CheckOrder"
+    values = {
+        'OrderId': str(order_id),
+        'Password': str(TERMINAL_PASSWORD),
+        'TerminalKey': str(TERMINAL_KEY),
+    }
+    concatenated_values = ''.join([values[key] for key in (values.keys())])
+    hash_object = hashlib.sha256(concatenated_values.encode('utf-8'))
+    token = hash_object.hexdigest()
+    values["Token"] = token
+    response = requests.post(url, json=values)
+    if response.status_code == requests.codes.ok:
+        response_data = response.json()
+        if response_data["Success"]:
+            if response_data['Payments'][0]["Success"]:
+                return True
+    return False
+
+
+def success_cons_pay(request, pk):
+    if check_order(pk):
+        RequestConsultation.objects.filter(id=int(pk)).update(pay_status=True)
+        return render(request, 'main/success_cons_pay.html')
+    else:
+        return redirect('fail_cons_pay')
+
+
+def fail_cons_pay(request):
+    return render(request, 'main/fail_cons_pay.html')
 
 
 def contacts_page(request):

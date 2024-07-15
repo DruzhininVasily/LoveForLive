@@ -2,12 +2,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
     path('courses/', include('courses.urls')),
-    path('profile/', include('profiles.urls'))
+    path('profile/', include('profiles.urls')),
+    path('politic', views.get_politic, name='politic')
 ]
 
 

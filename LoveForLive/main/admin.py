@@ -7,8 +7,8 @@ class ArticlesAdmin(admin.ModelAdmin):
 
 
 class RequestAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'phone', 'date')
-    list_filter = ('date',)
+    list_display = ('name', 'email', 'phone', 'date', 'pay_status')
+    list_filter = ('date', 'pay_status')
     search_fields = ('name',)
 
 

@@ -8,8 +8,8 @@ from .models import Profile
 from courses.models import Allowance
 
 
-def create_profile(user_name):
-    profile = Profile(user=user_name)
+def create_profile(user_name, phone):
+    profile = Profile(user=user_name, phone=phone)
     profile.save()
 
 
@@ -34,21 +34,25 @@ def login_view(request):
 def register(request):
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
-        if form.is_valid():
+        profile_form = ProfileUpdateForm(request.POST)
+        if form.is_valid() and profile_form.is_valid():
             form.save()
+            phone = profile_form.cleaned_data.get('phone')
             user_name = form.cleaned_data.get('username')
             messages.success(request, f'Пользователь {user_name} был успешно создан!')
             user = User.objects.filter(username=user_name).first()
-            create_profile(user)
+            create_profile(user, phone)
             return redirect('home')
     else:
         form = UserRegisterForm()
+        profile_form = ProfileUpdateForm
 
     return render(request,
                   'profiles/registration.html',
                   {
                       'title': 'Страница регистрации',
                       'form': form,
+                      'profile_form': profile_form
                   }
                   )
 
