@@ -84,12 +84,23 @@ class Lesson(models.Model):
     course = models.ForeignKey(Courses, on_delete=models.CASCADE)
     lesson_slug = models.SlugField('Название урока', max_length=80)
     title = models.CharField('Заголовок урока', max_length=50, default=None)
-    text = models.TextField('Текстовый материал')
     number = models.IntegerField('Номер урока')
-    poster = models.ImageField("Постер для видео", upload_to='posters', default='poster.png')
+
+    def __str__(self):
+        return f'{self.course.__str__()}_{self.lesson_slug}'
+
+    class Meta:
+        verbose_name = 'Урок'
+        verbose_name_plural = 'Уроки'
+
+
+class Block(models.Model):
+    text = models.TextField('Текстовый материал', blank=True)
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+    poster = models.ImageField("Постер для видео", upload_to='posters', default='poster.jpg')
     video = models.FileField(
         upload_to='video/',
-        validators=[FileExtensionValidator(allowed_extensions=['mp4'])],
+        validators=[FileExtensionValidator(allowed_extensions=['mov'])],
         default=None
     )
 
@@ -109,16 +120,12 @@ class Lesson(models.Model):
 
     def delete(self, *args, **kwargs):
         storage, path = self.poster.storage, self.poster.path
-        super(Lesson, self).delete(*args, **kwargs)
+        super(Block, self).delete(*args, **kwargs)
         if path != MEDIA_ROOT + '\poster.png':
             storage.delete(path)
 
     def __str__(self):
-        return f'{self.course.__str__()}_{self.lesson_slug}'
-
-    class Meta:
-        verbose_name = 'Урок'
-        verbose_name_plural = 'Уроки'
+        return self.lesson.lesson_slug
 
 
 class Tasks(models.Model):
@@ -160,6 +167,7 @@ class Order(models.Model):
     payment_id = models.CharField('ID платежа', default='0', max_length=100)
     date = models.DateTimeField('Дата платежа', default=timezone.now)
     pay_sum = models.IntegerField('Оплачено', default=0)
+    agreement = models.BooleanField('Согласие с договором', default=False)
 
     def __str__(self):
         return f'{self.user}_{self.course}'

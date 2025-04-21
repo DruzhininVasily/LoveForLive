@@ -73,6 +73,7 @@ def account(request):
         userForm = UserUpdateForm(instance=request.user)
         profileForm = ProfileUpdateForm(instance=request.user.profile)
         Courses = Allowance.objects.filter(user=request.user).all()
+        print(Courses)
     context = {
         'account': Profile.objects.filter(user=request.user).first(),
         'userForm': userForm,

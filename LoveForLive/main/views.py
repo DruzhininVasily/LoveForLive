@@ -7,12 +7,14 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.http import StreamingHttpResponse
 from LoveForLive.settings import TERMINAL_KEY, TERMINAL_PASSWORD
+from .models import HomeVideo
 import hashlib
 import requests
 
 
 def home_page_views(request):
-    return render(request, 'main/home.html', {'title': 'LoveForLive'})
+    home_video = HomeVideo.objects.filter(title='HomeVideo').first()
+    return render(request, 'main/home.html', {'title': 'LoveForLive', 'home_video': home_video})
 
 
 def consultation(request):
@@ -33,6 +35,7 @@ def consultation(request):
             form.save()
             price = 300000
             order = str(RequestConsultation.objects.all().order_by('-pk')[0].id)
+            RequestConsultation.objects.filter(id=int(order)).update(agreement=True)
             values = {
                 'Amount': str(price),
                 'Description': 'Индивидуальная консультация',
@@ -173,8 +176,8 @@ class ShowArticleDetail(DetailView):
         return ctx
 
 
-def get_streaming(request):
-    file, status_code, content_length, content_range = open_file(request)
+def get_streaming(request, pk: int):
+    file, status_code, content_length, content_range = open_file(request, pk)
     response = StreamingHttpResponse(file, status=status_code, content_type='video/mp4')
 
     response['Accept-Ranges'] = 'bytes'

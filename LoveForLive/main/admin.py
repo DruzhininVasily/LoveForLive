@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import RequestConsultation, Articles, Receipts
+from .models import RequestConsultation, Articles, Receipts, HomeVideo
 
 
 class ArticlesAdmin(admin.ModelAdmin):
@@ -15,3 +15,4 @@ class RequestAdmin(admin.ModelAdmin):
 admin.site.register(RequestConsultation, RequestAdmin)
 admin.site.register(Articles, ArticlesAdmin)
 admin.site.register(Receipts)
+admin.site.register(HomeVideo)

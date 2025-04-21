@@ -4,7 +4,7 @@
 <div class="home_main">
     <div class="home_main_descr">
         <h1>Нутрициолог, психолог и коуч в твоём кармане</h1>
-        <p>Расскажу все секреты как быть здоровой и счастливой. Ты получиш новый взгляд на жизнь.</p>
+        <p>Расскажу все секреты как быть здоровой и счастливой. Ты получишь новый взгляд на жизнь.</p>
         <a class="home_lg_button" href="{% url 'consultation' %}">Записаться на консультацию</a>
     </div>
     <img class="home_main_photo" src="media/main/Home_main_photo.png">
@@ -19,12 +19,12 @@
     </div>
     <div class="line"></div>
     <div class="second_descr">
-        <p class="home_second_descr_text">Мой главный принцып - не лечить болезни, а убрать из жизни то, что к ним приводит.</p>
+        <p class="home_second_descr_text">Мой главный принцип - не лечить болезни, а убрать из жизни то, что к ним приводит.</p>
         <hr>
         <p class="home_second_descr_text">Вместе со мной вы поймёте как всё устроено в организме, как наши привычки влияют на процессы которые происходят в нашем организме. Я помогу вам легко ввести правильные привычки в вашу жизнь.</p>
         <hr>
         <div class="home_second_descr_text">
-        <h3>Как результаты вы получите:</h3>
+        <h3>Какие результаты вы получите:</h3>
         <ul>
             <li>Укрепление иммунитета</li>
             <li>Прибавку энергии для жизни</li>
@@ -44,11 +44,13 @@
               controls
               controlsList="nodownload"
               preload="auto"
-              poster="media/default.png"
+              width="1000"
+              height="800"
+              poster="{{ home_video.poster.url }}"
               data-setup="{}"
           >
-            <source src="{% url 'main_stream' %}" type="video/mp4"/>
-            <source src="{% url 'main_stream' %}" type="video/webm"/>
+            <source src="{% url 'main_stream' home_video.id %}" type="video/mp4"/>
+            <source src="{% url 'main_stream' home_video.id %}" type="video/webm"/>
     </video>
 </div>
 <div class="home_third">
@@ -85,6 +87,7 @@
     <img class="sertif" src="/media/main/sertif_1.jpg">
     <img class="sertif" src="/media/main/sertif_2.jpg">
     <img class="sertif" src="/media/main/sertif_3.png">
+    <img class="sertif" src="/media/main/sertif_4.png">
     <img id="vegetable_5" src="media/main/vegetable 5.png">
     <img id="vegetable_6" src="media/main/vegetable 6.png">
 </div>

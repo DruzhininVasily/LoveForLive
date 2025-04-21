@@ -4,6 +4,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.urls import reverse
 from LoveForLive.settings import MEDIA_ROOT
 from PIL import Image
+from django.core.validators import FileExtensionValidator
 
 
 class RequestConsultation(models.Model):
@@ -16,6 +17,7 @@ class RequestConsultation(models.Model):
     pay_status = models.BooleanField('Статус оплаты', default=False)
     payment_id = models.CharField('ID платежа', default='0', max_length=100)
     pay_sum = models.IntegerField('Оплачено', default=0)
+    agreement = models.BooleanField('Согласие с договором', default=False)
 
     def __str__(self):
         return self.name
@@ -97,3 +99,21 @@ class Receipts(models.Model):
     class Meta:
         verbose_name = 'Рецепт'
         verbose_name_plural = 'Рецепты'
+
+
+class HomeVideo(models.Model):
+    title = models.CharField('Заголовок видео', max_length=100)
+    video = models.FileField(
+        upload_to='video/',
+        validators=[FileExtensionValidator(allowed_extensions=['mp4'])],
+        default=None
+    )
+    poster = models.ImageField("Постер для видео", upload_to='posters', default='poster.jpg')
+
+    def save(self, *args, **kwargs):
+        super().save()
+        image = Image.open(self.poster.path)
+        if image.height > 1000 or image.width > 600:
+            resize = (1000, 600)
+            image.thumbnail(resize)
+            image.save(self.poster.path)

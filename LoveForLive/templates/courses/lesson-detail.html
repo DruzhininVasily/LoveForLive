@@ -4,7 +4,8 @@
 {% if allow %}
 <div class="lesson">
     <a href="{% url 'course' course %}" class="rowband"><img src="/media/main/rowband.png">Назад</a>
-    <h1>{{ lesson.lesson_slug }}</h1>
+    <h1>{{ lesson.title }}</h1>
+    {% for block in blocks %}
     <video
               id="my-video"
               class="video-js"
@@ -13,13 +14,14 @@
               preload="auto"
               width="1000"
               height="800"
-              poster="{{ lesson.poster.url }}"
+              poster="{{ block.poster.url }}"
               data-setup="{}"
           >
-            <source src="{% url 'stream' lesson.id %}" type="video/mp4"/>
-            <source src="{% url 'stream' lesson.id %}" type="video/webm"/>
+            <source src="{% url 'stream' block.id %}" type="video/mov"/>
+            <source src="{% url 'stream' block.id %}" type="video/webm"/>
     </video>
-    <p>{{ lesson.text }}</p>
+    <p>{{ block.text|safe }}</p>
+    {% endfor %}
 </div>
 <div class="lesson_tasks">
             {% for prog in progress %}

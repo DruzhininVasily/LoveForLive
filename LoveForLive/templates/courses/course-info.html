@@ -4,12 +4,14 @@
 <div class="course_info_container">
     <img src="{{ course.img.url }}" alt="{{ course.title }}">
     <h1>{{ course.title }}</h1>
-    <p>{{ course.description }}</p>
+    <p>{{ course.description|safe }}</p>
     {% if user.is_authenticated %}
         <p>Стоимость курса: {{ course.price }}<span>руб.</span></p>
+        <p>Нажимая на кнопку "купить" вы принимаете условия <a class="agree_link" href="/media/agreement.pdf" target="_blank">договора</a></p>
         <form action="{% url 'payment' course=course.id %}" method="post">
             {% csrf_token %}
-            <input class="input_course_info" type="text" name="Promo">
+            <label for="Promo"><p>Введите промокод:</p></label>
+            <input class="input_course_info" type="text" name="Promo" id="Promo">
             <input class="info_course_button" type="submit" value="Купить">
         </form>
     {% else %}

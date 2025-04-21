@@ -1,7 +1,8 @@
 from pathlib import Path
 from typing import IO, Generator
 from django.shortcuts import get_object_or_404
-from LoveForLive.settings import MEDIA_ROOT
+from LoveForLive.settings import MEDIA_ROOT, STATIC_ROOT
+from .models import HomeVideo
 
 
 def ranged(
@@ -27,9 +28,10 @@ def ranged(
         file.close()
 
 
-def open_file(request):
+def open_file(request, video_pk: int) -> tuple:
+    _video = get_object_or_404(HomeVideo, pk=video_pk)
 
-    path = Path(MEDIA_ROOT + '/default_video.mp4')
+    path = Path(_video.video.path)
 
     file = path.open('rb')
     file_size = path.stat().st_size

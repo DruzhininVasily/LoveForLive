@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, TemplateView
-from .models import Courses, Allowance, Lesson, Tasks, LessonProgress, Dossing, Order, Promo
+from .models import Courses, Allowance, Lesson, Tasks, LessonProgress, Dossing, Order, Promo, Block
 from .forms import LessonProgressFormSet
 from .services import open_file
 from django.http import StreamingHttpResponse
@@ -35,10 +35,13 @@ class DossingView(DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         ctx = super(DossingView, self).get_context_data(**kwargs)
         course = Courses.objects.filter(slug=self.kwargs['slug']).first()
-        dossing = Dossing.objects.get(course=course)
-        dossing_list = dossing.dossing_list.split(';')
-        if dossing_list[-1] == '':
-            dossing_list.pop()
+        try:
+            dossing = Dossing.objects.get(course=course)
+            dossing_list = dossing.dossing_list.split(';')
+            if dossing_list[-1] == '':
+                dossing_list.pop()
+        except Exception:
+            dossing_list = []
         ctx['course'] = course
         ctx['dossing_list'] = dossing_list
         return ctx
@@ -79,6 +82,7 @@ class LessonDetailPage(DetailView):
         course = Courses.objects.filter(slug=self.kwargs['slug']).first()
         allow = Allowance.objects.filter(course=course).first().allow
         lesson = Lesson.objects.filter(lesson_slug=self.kwargs['lesson_slug']).first()
+        blocks = Block.objects.filter(lesson=lesson).all()
         tasks = Tasks.objects.filter(lesson=lesson).all()
         progress = []
         for task in tasks:
@@ -86,6 +90,7 @@ class LessonDetailPage(DetailView):
         ctx['title'] = lesson
         ctx['lesson'] = lesson
         ctx['tasks'] = tasks
+        ctx['blocks'] = blocks
         ctx['course'] = course
         ctx['progress'] = progress
         ctx['allow'] = allow
@@ -99,7 +104,7 @@ class LessonDetailPage(DetailView):
 
 def get_streaming_video(request, pk: int):
     file, status_code, content_length, content_range = open_file(request, pk)
-    response = StreamingHttpResponse(file, status=status_code, content_type='video/mp4')
+    response = StreamingHttpResponse(file, status=status_code, content_type='video/mov')
 
     response['Accept-Ranges'] = 'bytes'
     response['Content-Length'] = str(content_length)
@@ -133,7 +138,7 @@ def payment_view(request, course):
     except Exception:
         sale = 0
     price = int((int(course.price) * 100) - (int(course.price * 100) * sale))
-    Order.objects.filter(id=order.id).update(pay_sum=price/100)
+    Order.objects.filter(id=order.id).update(pay_sum=price/100, agreement=True)
     values = {
         'Amount': str(price),
         'Description': 'Обучающий курс ' + str(course.title),

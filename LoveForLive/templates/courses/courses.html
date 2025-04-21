@@ -21,6 +21,14 @@
             <a href="{% url 'course_info' pk=al.course.id %}">Пройти обучение</a>
         </div>
             {% endif %}
+        {% else %}
+            {% if user.username == 'admin' %}
+                <div class="course_container">
+                    <h3>{{ al.course.title }}</h3>
+                    <img src="{{ al.course.img.url }}" alt="{{ al.course.title }}">
+                    <a href="{% url 'course' al.course %}">Пройти обучение</a>
+                </div>
+            {% endif %}
         {% endif %}
     {% endfor %}
     {% else %}

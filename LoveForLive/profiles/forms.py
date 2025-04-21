@@ -40,7 +40,7 @@ class UserRegisterForm(UserCreationForm):
     password2 = forms.CharField(
         label='',
         required=True,
-        widget=forms.PasswordInput(attrs={'class': 'reg_form_input', 'placeholder': 'Повторно введите логин'})
+        widget=forms.PasswordInput(attrs={'class': 'reg_form_input', 'placeholder': 'Повторно введите пароль'})
     )
 
     class Meta:
